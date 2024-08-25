@@ -1,0 +1,34 @@
+-- Total orders for May
+SELECT COUNT(transaction_id) AS Total_Orders
+FROM coffee_shop_sales 
+WHERE MONTH(transaction_date) = 5;
+
+-- Total orders KPI - MoM difference and growth
+SELECT 
+    MONTH(transaction_date) AS month,
+    ROUND(COUNT(transaction_id)) AS total_orders,
+    (COUNT(transaction_id) - LAG(COUNT(transaction_id), 1) 
+    OVER (ORDER BY MONTH(transaction_date))) / LAG(COUNT(transaction_id), 1) 
+    OVER (ORDER BY MONTH(transaction_date)) * 100 AS mom_increase_percentage
+FROM 
+    coffee_shop_sales
+WHERE 
+    MONTH(transaction_date) IN (4, 5)
+GROUP BY 
+    MONTH(transaction_date)
+ORDER BY 
+    MONTH(transaction_date;
+
+Results:
+[
+  {
+    "month": 4,
+    "total_sales": 118941,
+    "mom_increase_percentage": null
+  },
+  {
+    "month": 5,
+    "total_sales": 156728,
+    "mom_increase_percentage": 31.769242384551315
+  }
+]

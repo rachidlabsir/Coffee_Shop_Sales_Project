@@ -1,0 +1,74 @@
+-- Convert date column to proper format
+UPDATE coffee_shop_sales
+SET transaction_date = STR_TO_DATE(transaction_date, '%d-%m-%Y');
+
+-- Alter date column to Date data type
+ALTER TABLE coffee_shop_sales
+MODIFY COLUMN transaction_date DATE;
+
+-- Convert time column to proper format
+UPDATE coffee_shop_sales
+SET transaction_time = STR_TO_DATE(transaction_time, '%H:%i:%s');
+
+-- Alter time column to Time data type
+ALTER TABLE coffee_shop_sales
+MODIFY COLUMN transaction_time TIME;
+
+-- Data types of different columns
+DESCRIBE coffee_shop_sales;
+
+-- Change column name
+ALTER TABLE coffee_shop_sales
+CHANGE COLUMN `ï»¿transaction_id` transaction_id INT;
+
+-- Total sales for May
+SELECT ROUND(SUM(unit_price * transaction_qty)) AS Total_Sales 
+FROM coffee_shop_sales 
+WHERE MONTH(transaction_date) = 5;
+
+-- Total sales KPI - MoM difference and growth
+SELECT 
+    MONTH(transaction_date) AS month,
+    ROUND(SUM(unit_price * transaction_qty)) AS total_sales,
+    (SUM(unit_price * transaction_qty) - LAG(SUM(unit_price * transaction_qty), 1)
+    OVER (ORDER BY MONTH(transaction_date))) / LAG(SUM(unit_price * transaction_qty), 1) 
+    OVER (ORDER BY MONTH(transaction_date)) * 100 AS mom_increase_percentage
+FROM 
+    coffee_shop_sales
+WHERE 
+    MONTH(transaction_date) IN (4, 5)
+GROUP BY 
+    MONTH(transaction_date)
+ORDER BY 
+    MONTH(transaction_date);
+
+Result
+
+-- Total Sales:
+
+{
+  "Result Grid": [
+    {
+      "Total_Sales": 156728
+    }
+  ]
+}
+
+
+-- Total sales KPI - MoM difference and growth
+[
+  {
+    "month": 4,
+    "total_sales": 118941,
+    "mom_increase_percentage": null
+  },
+  {
+    "month": 5,
+    "total_sales": 156728,
+    "mom_increase_percentage": 31.76292423854531315
+  }
+]
+
+
+
+

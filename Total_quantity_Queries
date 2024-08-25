@@ -1,0 +1,34 @@
+-- Total quantity sold for May
+SELECT SUM(transaction_qty) AS Total_Quantity_Sold
+FROM coffee_shop_sales 
+WHERE MONTH(transaction_date) = 5;
+
+-- Total quantity sold KPI - MoM difference and growth
+SELECT 
+    MONTH(transaction_date) AS month,
+    ROUND(SUM(transaction_qty)) AS total_quantity_sold,
+    (SUM(transaction_qty) - LAG(SUM(transaction_qty), 1) 
+    OVER (ORDER BY MONTH(transaction_date))) / LAG(SUM(transaction_qty), 1) 
+    OVER (ORDER BY MONTH(transaction_date)) * 100 AS mom_increase_percentage
+FROM 
+    coffee_shop_sales
+WHERE 
+    MONTH(transaction_date) IN (4, 5)
+GROUP BY 
+    MONTH(transaction_date)
+ORDER BY 
+    MONTH(transaction_date);
+
+Results:
+[
+    {
+        "month": 4,
+        "total_orders": 25335,
+        "mom_increase_percentage": null
+    },
+    {
+        "month": 5,
+        "total_orders": 333527,
+        "mom_increase_percentage": 32.3347
+    }
+]

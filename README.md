@@ -19,19 +19,26 @@ We aim to analyze the KPIs related to sales, orders, and quantity sold for each 
 
 ### Total Quantity Sold Analysis:
 
-    Calculate the total quantity sold for each month.
-    Determine MoM increase or decrease in the total quantity sold.
-    Calculate the difference in the total quantity sold between the selected month and the previous month.
+    -Calculate the total quantity sold for each month.
+    -Determine MoM increase or decrease in the total quantity sold.
+    -Calculate the difference in the total quantity sold between the selected month and the previous month.
 
 ## Project Steps
 
   **Data Walkthrough**: Review the dataset for potential inconsistencies and errors.
+  
   **Raw Data File Preparation**: Ensure the dataset is ready for database import.
+  
   **Creating Database**: Set up the database and import the dataset.
+  
   **Cleaning Imported File**: Clean the dataset using SQL queries.
+  
   **Changing Data Types**: Modify data types for accurate calculations.
+  
   **Firing SQL Queries**: Write and execute SQL queries to calculate KPIs.
+  
   **Storing Results**: Store the results for further analysis.
+  
   **Preparing SQL Documents**: Organize and save the queries and results for documentation purposes.
 
 ## SQL Queries
@@ -62,7 +69,7 @@ MODIFY COLUMN transaction_time TIME;
 
    #### KPI Calculation Queries
 
-##### Total Sales for May:
+#### Total Sales for May:
 Objective: Calculate total sales for a specific month (May).
 
 ```sql
@@ -75,7 +82,7 @@ The total sales for May amounting to 156,728 $ indicates a solid revenue month f
 
 **Insight**: Total sales for May provide an overview of the business's revenue during this period.
 
-##### Total Sales KPI - MoM Difference and Growth:
+#### Total Sales KPI - MoM Difference and Growth:
 
 This SQL query calculates the total sales for April and May and determines the month-over-month (MoM) percentage increase or decrease in sales. Here’s a breakdown of the query:
 
@@ -97,7 +104,7 @@ ORDER BY
 ```
 **Insight**: The query results indicate that the business experienced a 31.76% increase in sales from April to May. This significant increase suggests that the business strategies or promotions implemented during this period were effective
 
-##### Total Orders KPI - MoM Difference and Growth:
+#### Total Orders KPI - MoM Difference and Growth:
 
 This SQL query calculates the total number of orders for April and May and determines the month-over-month (MoM) percentage increase or decrease in the number of orders. Here’s a breakdown of the query:
 
@@ -127,7 +134,7 @@ Daily Sales, Quantity, and Total Orders for May 18:
 
 **Improved Customer Engagement**: Enhanced customer engagement strategies, such as better customer service or targeted marketing, might have contributed to the increase in orders.
 
-##### Sales & Orders on May 18, 2023
+#### Sales & Orders on May 18, 2023
 
 This SQL query calculates the total sales, total quantity sold, and total number of orders for a specific date, May 18, 2023. 
 
@@ -147,7 +154,7 @@ Total Quantity Sold: 1,659 units.This shows the total number of items (e.g., cof
 
 Total Orders: 1,192 transactions.The number of individual orders placed on May 18, highlighting customer activity and transaction volume.
 
-##### Sales Trend Over May:
+#### Sales Trend Over May:
 Calculate the total sales for each day in May.
 
 ```sql
@@ -167,7 +174,7 @@ FROM (
 ```
 **Insight** : The average daily sales for May is 5,055.73. This means that, on average, the coffee shop generated approximately $5,055.73 in sales each day during the month of May.
 
-##### Comparing Daily Sales with Average Sales:
+#### Comparing Daily Sales with Average Sales:
 
 Calculate the total sales for each day in May and the overall average sales for May.
 
@@ -241,66 +248,7 @@ Daily sales varied considerably throughout the month, with the highest sales rec
 Overall, May's data reflects strong revenue performance and highlights the effectiveness of recent business strategies. The variability in daily sales offers insights into customer behavior and operational efficiency, providing opportunities to refine marketing efforts and optimize inventory and staffing.
 
 ## Recommendations
-    Analyze Successful Days: Investigate the factors behind the high sales on days like May 8, 13, 15, 17, and 19. Identify any promotions, events, or special offers that contributed to these peaks and consider replicating these strategies on other days to boost sales.
-
-    Boost Low-Sales Days: For days with lower sales, such as May 6, 7, 28, and 29, analyze potential causes and implement targeted strategies to increase sales. Consider running special promotions, discounts, or events to attract more customers on these days.
-
-    Refine Promotional Strategies: The significant MoM increase in sales and orders suggests that recent promotions were effective. Continue to monitor and adjust promotional strategies based on their performance. Experiment with new marketing campaigns and measure their impact on sales and customer engagement.
-
-    Optimize Staffing and Inventory: Given the variability in daily sales, adjust staffing levels and inventory management to align with peak and low-sales days. Ensure adequate staffing during high-traffic periods and manage inventory to avoid stockouts or overstocking.
-
-    Customer Engagement: Enhance customer engagement strategies by offering loyalty programs, personalized marketing, or exclusive offers to boost repeat business and drive more sales.
-
-    Seasonal Trends: Consider potential seasonal factors that might influence sales patterns. Plan for seasonal promotions or product offerings to capitalize on trends and customer preferences during different times of the year.
-
-    Monitor and Adjust: Continuously track sales and order data to identify trends and make data-driven decisions. Regularly review performance metrics and adjust strategies to ensure sustained growth and profitability.
-
-By implementing these recommendations, the coffee shop can leverage insights from past performance to drive future success and improve overall business outcomes.
-You said:
-format the recommendation to keep in the same format you provide so i can paste to readme file on github
-ChatGPT said:
-ChatGPT
-
-Here is the formatted recommendation for inclusion in your README file on GitHub:
-Recommendations
-
-    Analyze Successful Days:
-        Investigate factors contributing to high sales on days like May 8, 13, 15, 17, and 19.
-        Identify any promotions, events, or special offers that drove these peaks.
-        Replicate successful strategies on other days to boost sales.
-
-    Boost Low-Sales Days:
-        Analyze causes behind lower sales on days such as May 6, 7, 28, and 29.
-        Implement targeted strategies, such as special promotions or events, to increase sales on these days.
-
-    Refine Promotional Strategies:
-        Continue monitoring and adjusting promotional efforts based on their performance.
-        Experiment with new marketing campaigns and measure their impact on sales and customer engagement.
-
-    Optimize Staffing and Inventory:
-        Adjust staffing levels and inventory management according to peak and low-sales days.
-        Ensure adequate staffing during high-traffic periods and manage inventory to prevent stockouts or overstocking.
-
-    Enhance Customer Engagement:
-        Offer loyalty programs, personalized marketing, or exclusive offers to boost repeat business.
-        Increase customer engagement to drive more sales.
-
-    Consider Seasonal Trends:
-        Plan for seasonal promotions or product offerings based on potential seasonal factors affecting sales.
-        Capitalize on trends and customer preferences during different times of the year.
-
-    Monitor and Adjust:
-        Continuously track sales and order data to identify trends.
-        Regularly review performance metrics and adjust strategies to ensure sustained growth and profitability.
-
-You said:
-no add ** to add font
-ChatGPT said:
-ChatGPT
-
-Certainly! Here's the formatted recommendation with bold headings for use in a README file:
-Recommendations
-
+    
 **Analyze Successful Days**:Investigate factors contributing to high sales on days like May 8, 13, 15, 17, and 19.Identify any promotions, events, or special offers that drove these peaks.Replicate successful strategies on other days to boost sales.
 
 **Boost Low-Sales Days**:Analyze causes behind lower sales on days such as May 6, 7, 28, and 29.Implement targeted strategies, such as special promotions or events, to increase sales on these days.

@@ -1,27 +1,13 @@
 # Coffee_Shop_Sales_Project
 This project focuses on analyzing Key Performance Indicators (KPIs) related to the sales of a coffee shop, using SQL to perform various calculations and derive insights.
 
-## Problem Statement
+## Introduction
 
-We aim to analyze the KPIs related to sales, orders, and quantity sold for each month, calculate month-on-month (MoM) changes, and derive insights that help inform business decisions. The following KPIs will be calculated:
+The primary objective of this analysis is to gain insights into sales performance over a given period. Using Power BI, we visualized various key metrics to identify trends, patterns, and opportunities for improvement. The dataset consists of sales transactions from a coffee shop, and this report outlines the analysis of total sales, orders, and quantities sold, along with detailed breakdowns by day, week, store location, and product categories. SQL was used to preprocess and query the data, ensuring efficient data extraction and transformation for analysis in Power BI.
 
-### Total Sales Analysis:
+## Background
 
-    -Calculate total sales for each month.
-    -Determine MoM increase or decrease in sales.
-    -Calculate the difference in sales between the selected month and the previous month.
-
-### Total Orders Analysis:
-
-    -Calculate total orders for each month.
-    -Determine MoM increase or decrease in the number of orders.
-    -Calculate the difference in the number of orders between the selected month and the previous month.
-
-### Total Quantity Sold Analysis:
-
-    -Calculate the total quantity sold for each month.
-    -Determine MoM increase or decrease in the total quantity sold.
-    -Calculate the difference in the total quantity sold between the selected month and the previous month.
+This analysis aims to explore key performance indicators (KPIs) related to total sales, orders, and quantities sold. To address the business challenges, several Power BI visualizations were used to assist in decision-making, including heat maps, line charts, and bar charts. The key areas of focus include total monthly sales, sales trends by location and product, and the identification of top-performing products and store locations. SQL queries were utilized not only for data retrieval and preprocessing but also for KPI calculation and analysis, ensuring accurate and detailed insights for the business.
 
 ## Project Steps
 
@@ -41,9 +27,10 @@ We aim to analyze the KPIs related to sales, orders, and quantity sold for each 
   
   **Preparing SQL Documents**: Organize and save the queries and results for documentation purposes.
 
-## SQL Queries
 
-### Data Cleaning and Preparation
+## Analysis
+
+### 1. Data Cleaning and Preparation
 
    #### Convert Date to Proper Format:
 
@@ -66,18 +53,17 @@ MODIFY COLUMN transaction_date DATE;
 ALTER TABLE coffee_shop_sales
 MODIFY COLUMN transaction_time TIME;
 ```
+### 2. Total Sales Analysis
 
-   #### KPI Calculation Queries
+**Objective**: Calculate and compare monthly sales, providing insights into trends and growth. SQL queries were used to calculate total sales for each month, with May 2023 being a focus.
 
-#### Total Sales for May:
-Objective: Calculate total sales for a specific month (May).
+#### Total Sales 
 
 ```sql
 SELECT ROUND(SUM(unit_price * transaction_qty)) AS Total_Sales 
 FROM coffee_shop_sales 
 WHERE MONTH(transaction_date) = 5;
 ```
-
 The total sales for May amounting to 156,728 $ indicates a solid revenue month for the coffee shop
 
 **Insight**: Total sales for May provide an overview of the business's revenue during this period.
@@ -104,7 +90,7 @@ ORDER BY
 ```
 **Insight**: The query results indicate that the business experienced a 31.76% increase in sales from April to May. This significant increase suggests that the business strategies or promotions implemented during this period were effective
 
-#### Total Orders KPI - MoM Difference and Growth:
+### 3.Total Orders KPI - MoM Difference and Growth:
 
 This SQL query calculates the total number of orders for April and May and determines the month-over-month (MoM) percentage increase or decrease in the number of orders. Here’s a breakdown of the query:
 
@@ -125,6 +111,7 @@ GROUP BY
 ORDER BY 
     MONTH(transaction_date);
 ```
+
 **Insight**: The query results indicate that the business experienced a 32.33% increase in total orders from April to May. This significant increase suggests that the business strategies or promotions implemented during this period were effective
 Daily Sales, Quantity, and Total Orders for May 18:
 
@@ -134,7 +121,7 @@ Daily Sales, Quantity, and Total Orders for May 18:
 
 **Improved Customer Engagement**: Enhanced customer engagement strategies, such as better customer service or targeted marketing, might have contributed to the increase in orders.
 
-#### Sales & Orders on May 18, 2023
+### 4.Calendar Heat Map for Sales
 
 This SQL query calculates the total sales, total quantity sold, and total number of orders for a specific date, May 18, 2023. 
 
@@ -154,27 +141,32 @@ Total Quantity Sold: 1,659 units.This shows the total number of items (e.g., cof
 
 Total Orders: 1,192 transactions.The number of individual orders placed on May 18, highlighting customer activity and transaction volume.
 
-#### Sales Trend Over May:
-Calculate the total sales for each day in May.
+### 5.Sales by weekday/weekend:
+
+The objective of this SQL query is to analyze and compare sales performance between weekdays and weekends for the month of May. 
 
 ```sql
 
-SELECT AVG(total_sales) AS average_sales
-FROM (
-    SELECT 
-        SUM(unit_price * transaction_qty) AS total_sales
-    FROM 
-        coffee_shop_sales
-    WHERE 
-        MONTH(transaction_date) = 5
-    GROUP BY 
-        transaction_date
-) AS internal_query;
-
+SELECT 
+    CASE 
+        WHEN DAYOFWEEK(transaction_date) IN (1, 7) THEN 'Weekends'
+        ELSE 'Weekdays'
+    END AS day_type,
+    ROUND(SUM(unit_price * transaction_qty),2) AS total_sales
+FROM 
+    coffee_shop_sales
+WHERE 
+    MONTH(transaction_date) = 5
+GROUP BY 
+    CASE 
+        WHEN DAYOFWEEK(transaction_date) IN (1, 7) THEN 'Weekends'
+        ELSE 'Weekdays'
+    END;
 ```
-**Insight** : The average daily sales for May is 5,055.73. This means that, on average, the coffee shop generated approximately $5,055.73 in sales each day during the month of May.
 
-#### Comparing Daily Sales with Average Sales:
+**Insight** :Sales on weekdays significantly exceed those on weekends, indicating that the coffee shop experiences higher revenue on weekdays.The lower sales on weekends might suggest opportunities for promotions or marketing strategies to boost sales during this period.
+
+#### 6.Comparing Daily Sales with Average Sales:
 
 Calculate the total sales for each day in May and the overall average sales for May.
 

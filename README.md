@@ -32,14 +32,14 @@ This analysis aims to explore key performance indicators (KPIs) related to total
 
 ### 1. Data Cleaning and Preparation
 
-   #### Convert Date to Proper Format:
+#### Convert Date to Proper Format:
 
 ```sql
 UPDATE coffee_shop_sales
 SET transaction_date = STR_TO_DATE(transaction_date, '%d-%m-%Y');
 ```
 
-   #### Convert Time to Proper Format:
+#### Convert Time to Proper Format:
 
 ```sql
 UPDATE coffee_shop_sales
@@ -166,7 +166,7 @@ GROUP BY
 
 **Insight** :Sales on weekdays significantly exceed those on weekends, indicating that the coffee shop experiences higher revenue on weekdays.The lower sales on weekends might suggest opportunities for promotions or marketing strategies to boost sales during this period.
 
-#### 6.Comparing Daily Sales with Average Sales:
+### 6.Comparing Daily Sales with Average Sales:
 
 Calculate the total sales for each day in May and the overall average sales for May.
 
@@ -195,41 +195,75 @@ Calculate the total sales for each day in May and the overall average sales for 
         day_of_month;
 
 ```
-| Day of Month | Sales   | Status        | Total Sales |
-|--------------|---------|---------------|-------------|
-| 1            | 5418.00 | Above Average | 5418.00     |
-| 2            | 4731.45 | Below Average | 4731.45     |
-| 3            | 4625.50 | Below Average | 4625.50     |
-| 4            | 4589.70 | Below Average | 4589.70     |
-| 5            | 4701.00 | Below Average | 4701.00     |
-| 6            | 4205.15 | Below Average | 4205.15     |
-| 7            | 4542.70 | Below Average | 4542.70     |
-| 8            | 5604.21 | Above Average | 5604.21     |
-| 9            | 5100.97 | Above Average | 5100.97     |
-| 10           | 5256.33 | Above Average | 5256.33     |
-| 11           | 4850.06 | Below Average | 4850.06     |
-| 12           | 4681.13 | Below Average | 4681.13     |
-| 13           | 5511.53 | Above Average | 5511.53     |
-| 14           | 5052.65 | Below Average | 5052.65     |
-| 15           | 5384.98 | Above Average | 5384.98     |
-| 16           | 5542.13 | Above Average | 5542.13     |
-| 17           | 5657.88 | Above Average | 5657.88     |
-| 18           | 5583.47 | Above Average | 5583.47     |
-| 19           | 5657.88 | Above Average | 5657.88     |
-| 20           | 5519.28 | Above Average | 5519.28     |
-| 21           | 5370.81 | Above Average | 5370.81     |
-| 22           | 5541.16 | Above Average | 5541.16     |
-| 23           | 5242.91 | Above Average | 5242.91     |
-| 24           | 5391.45 | Above Average | 5391.45     |
-| 25           | 5230.85 | Above Average | 5230.85     |
-| 26           | 5300.95 | Above Average | 5300.95     |
-| 27           | 5559.15 | Above Average | 5559.15     |
-| 28           | 4338.65 | Below Average | 4338.65     |
-| 29           | 3959.50 | Below Average | 3959.50     |
-| 30           | 4835.48 | Below Average | 4835.48     |
-| 31           | 4684.13 | Below Average | 4684.13     |
 
- **Insight**:The sales data reveals a mix of high and low performing days, indicating variability in daily sales. Notable high sales days include the 8th, 13th, 15th, and 17th, with the 8th reaching $5,604.21, significantly above the average. Conversely, days like the 6th, 7th, 28th, and 29th had lower sales, with the 29th being the lowest at $3,959.50. The highest sales day was the 19th, with $5,657.88, suggesting that analyzing factors contributing to this peak can help replicate success. Categorizing days can reveal patterns, such as higher sales on weekends, indicating increased customer traffic. This data can be strategically used to plan promotions on low sales days and ensure adequate staffing and inventory on high sales days.
+**Insight**:The sales data reveals a mix of high and low performing days, indicating variability in daily sales. Notable high sales days include the 8th, 13th, 15th, and 17th, with the 8th reaching $5,604.21, significantly above the average. Conversely, days like the 6th, 7th, 28th, and 29th had lower sales, with the 29th being the lowest at $3,959.50. The highest sales day was the 19th, with $5,657.88, suggesting that analyzing factors contributing to this peak can help replicate success. Categorizing days can reveal patterns, such as higher sales on weekends, indicating increased customer traffic. This data can be strategically used to plan promotions on low sales days and ensure adequate staffing and inventory on high sales days.
+
+### 7.Sales by Store Location
+
+This SQL query retrieves the total sales for each store location in a coffee shop chain during the month of May. Here's a breakdown of how the query works:
+
+```sql
+SELECT 
+    store_location,
+    SUM(unit_price * transaction_qty) AS Total_Sales
+FROM coffee_shop_sales
+WHERE
+    MONTH(transaction_date) = 5 
+GROUP BY store_location
+ORDER BY SUM(unit_price * transaction_qty) DESC;
+```
+**Insight**:Hell's Kitchen leads in total sales with $52.9K, showing a significant 30.5% increase compared to the previous month. Astoria follows closely with $52.4K, boasting the highest growth rate of 32.8%, adding $13.1K in sales. Lower Manhattan, with $51.7K in total sales, also marks a 32% increase, contributing an additional $12.5K. All three locations demonstrate strong sales growth, with Astoria showing the most notable upward trend despite not having the highest overall sales.
+
+### 8.Sales by product category
+
+This SQL query calculates the total sales for each product category in a coffee shop during the month of May. It does this by:
+
+```sql
+SELECT 
+    product_category,
+    ROUND(SUM(unit_price * transaction_qty),1) AS Total_Sales
+FROM coffee_shop_sales
+WHERE
+    MONTH(transaction_date) = 5 
+GROUP BY product_category
+ORDER BY SUM(unit_price * transaction_qty) DESC;
+```
+**Insight** : Coffee leads as the top-selling category with total sales of $60,362.8, followed by Tea at $44,539.8. Moderate performers include Bakery, with $18,565.5 in sales, and Drinking Chocolate at $16,319.8. Lower sales categories include Coffee Beans at $8,768.9, Branded items at $2,889, Loose Tea at $2,395.2, Flavours at $1,905.6, and Packaged Chocolate at $981.1. Coffee and Tea dominate the sales distribution, accounting for the majority of revenue, while Bakery and Drinking Chocolate also contribute but lag significantly behind. The remaining categories present opportunities for growth or reevaluation due to their comparatively low sales.
+
+### 9.Sales by products (Top 10)
+
+This SQL query is designed to retrieve the top 10 products by sales from a coffee shop’s sales database for the month of May.
+
+```sql
+SELECT 
+    product_type,
+    ROUND(SUM(unit_price * transaction_qty),1) AS Total_Sales
+FROM coffee_shop_sales
+WHERE
+    MONTH(transaction_date) = 5 
+GROUP BY product_type
+ORDER BY SUM(unit_price * transaction_qty) DESC
+LIMIT 10;
+```
+
+**Insight**:Barista Espresso leads the sales with $20,423.4, indicating strong customer preference. Brewed Chai Tea and Hot Chocolate are also top sellers, with $17,427.7 and $16,319.8 in sales, respectively, likely favored during cooler months as comfort drinks. The data reflects diverse customer tastes, with popular options like Gourmet Brewed Coffee, Brewed Herbal Tea, and Brewed Black Tea. Specialty coffees, such as Premium and Organic Brewed Coffee, also show significant sales, indicating a demand for higher-end products. Scones, the only non-beverage item in the top 10, with $8,305.3 in sales, suggest customers enjoy pairing snacks with drinks. Although Drip Coffee has the lowest sales among the top 10 at $7,290.5, its presence indicates steady demand.
+
+To capitalize on these insights, promoting top-selling items like Barista Espresso and Brewed Chai Tea through special offers or loyalty programs could boost sales further. Ensuring high-performing products are prominently displayed and adjusting inventory based on seasonal trends, such as increasing hot beverages during colder months, would also be beneficial
+
+### 11.Sales by Days and Hours patterns
+
+The heatmap is designed to visualize sales data by both day and hour. The horizontal axis (x-axis) represents the days of the week, from Monday to Sunday, while the vertical axis (y-axis) shows the hours of the day in a 24-hour format, from 0 to 23. Each cell in the grid corresponds to a specific day-hour combination, with varying shades of brown indicating the level of sales; darker shades represent higher sales volumes.
+Additionally, the heatmap includes two bar charts for further insights:
+
+A vertical bar chart on the right side summarizes total sales for each hour across all days.
+
+A horizontal bar chart on top summarizes total sales for each day across all hours.
+
+When you hover over any cell in the heatmap, tooltips display detailed metrics such as sales, orders, and quantity, providing more granular information about the sales data.
+
+**Insight**:The darkest shades on the heat map indicate the highest sales volumes, with peak hours around 7 AM to 12 PM .Sales drop significantly after 6 PM and are lowest on Sunday. Early mornings (before 9 AM) also see minimal sales.The vertical  bar chart at the top shows that sales are highest from Monday to Wednesday, suggesting that weekdays and the start of the workweek are particularly busy for the business.
+
+To optimize operations, focus staffing and inventory during the morning hours on high-sales days and consider weekend promotions to boost Saturday and Sunday traffic. Reducing operational costs during low-sales periods (early mornings and late evenings) can improve efficiency. Midweek (Monday-Wednesday) offers strong opportunities for targeted marketing campaigns or product launches.
 
 ## Insights and Learnings
 

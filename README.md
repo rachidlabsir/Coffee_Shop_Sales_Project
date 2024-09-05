@@ -1,4 +1,5 @@
 # Coffee_Shop_Sales_Project
+
 This project focuses on analyzing Key Performance Indicators (KPIs) related to the sales of a coffee shop, using SQL to perform various calculations and derive insights.
 
 ## Introduction
@@ -88,6 +89,8 @@ GROUP BY
 ORDER BY 
     MONTH(transaction_date);
 ```
+   ![image 1](https://github.com/user-attachments/assets/f92abd72-97ec-4925-b46e-9e6dddd76e1d)
+
 **Insight**: The query results indicate that the business experienced a 31.76% increase in sales from April to May. This significant increase suggests that the business strategies or promotions implemented during this period were effective
 
 ### 3.Total Orders KPI - MoM Difference and Growth:
@@ -111,6 +114,7 @@ GROUP BY
 ORDER BY 
     MONTH(transaction_date);
 ```
+   ![image 2](https://github.com/user-attachments/assets/d92ee83a-c44f-486a-99a4-1440ad4d400b)
 
 **Insight**: The query results indicate that the business experienced a 32.33% increase in total orders from April to May. This significant increase suggests that the business strategies or promotions implemented during this period were effective
 Daily Sales, Quantity, and Total Orders for May 18:
@@ -135,6 +139,8 @@ This SQL query calculates the total sales, total quantity sold, and total number
     WHERE 
         transaction_date = '2023-05-18';
 ```
+   ![image 3](https://github.com/user-attachments/assets/4a0aec1f-4a2c-441d-ae20-188d8d2c5ffd)
+
 **Insight**: Total Sales: $5,593.47.This value represents the total revenue generated on May 18, 2023, indicating a strong sales day for the coffee shop.
 
 Total Quantity Sold: 1,659 units.This shows the total number of items (e.g., coffee, snacks) sold, providing insight into the demand for products on that particular day.
@@ -163,6 +169,8 @@ GROUP BY
         ELSE 'Weekdays'
     END;
 ```
+
+   ![image 5](https://github.com/user-attachments/assets/a5897bc0-d8e7-4855-a35a-bdf198b2bf65)
 
 **Insight** :Sales on weekdays significantly exceed those on weekends, indicating that the coffee shop experiences higher revenue on weekdays.The lower sales on weekends might suggest opportunities for promotions or marketing strategies to boost sales during this period.
 
@@ -195,6 +203,7 @@ Calculate the total sales for each day in May and the overall average sales for 
         day_of_month;
 
 ```
+   ![image 4](https://github.com/user-attachments/assets/c107b8b0-8dd3-4a0b-b76b-096f1aabf5dd)
 
 **Insight**:The sales data reveals a mix of high and low performing days, indicating variability in daily sales. Notable high sales days include the 8th, 13th, 15th, and 17th, with the 8th reaching $5,604.21, significantly above the average. Conversely, days like the 6th, 7th, 28th, and 29th had lower sales, with the 29th being the lowest at $3,959.50. The highest sales day was the 19th, with $5,657.88, suggesting that analyzing factors contributing to this peak can help replicate success. Categorizing days can reveal patterns, such as higher sales on weekends, indicating increased customer traffic. This data can be strategically used to plan promotions on low sales days and ensure adequate staffing and inventory on high sales days.
 
@@ -212,6 +221,8 @@ WHERE
 GROUP BY store_location
 ORDER BY SUM(unit_price * transaction_qty) DESC;
 ```
+   ![image 6](https://github.com/user-attachments/assets/693e6cb1-8c14-41b3-a53d-78cc021886e3)
+
 **Insight**:Hell's Kitchen leads in total sales with $52.9K, showing a significant 30.5% increase compared to the previous month. Astoria follows closely with $52.4K, boasting the highest growth rate of 32.8%, adding $13.1K in sales. Lower Manhattan, with $51.7K in total sales, also marks a 32% increase, contributing an additional $12.5K. All three locations demonstrate strong sales growth, with Astoria showing the most notable upward trend despite not having the highest overall sales.
 
 ### 8.Sales by product category
@@ -228,6 +239,8 @@ WHERE
 GROUP BY product_category
 ORDER BY SUM(unit_price * transaction_qty) DESC;
 ```
+   ![image 7](https://github.com/user-attachments/assets/aa6c1014-a498-47e8-9836-8f4e7b89c6f9)
+
 **Insight** : Coffee leads as the top-selling category with total sales of $60,362.8, followed by Tea at $44,539.8. Moderate performers include Bakery, with $18,565.5 in sales, and Drinking Chocolate at $16,319.8. Lower sales categories include Coffee Beans at $8,768.9, Branded items at $2,889, Loose Tea at $2,395.2, Flavours at $1,905.6, and Packaged Chocolate at $981.1. Coffee and Tea dominate the sales distribution, accounting for the majority of revenue, while Bakery and Drinking Chocolate also contribute but lag significantly behind. The remaining categories present opportunities for growth or reevaluation due to their comparatively low sales.
 
 ### 9.Sales by products (Top 10)
@@ -245,6 +258,7 @@ GROUP BY product_type
 ORDER BY SUM(unit_price * transaction_qty) DESC
 LIMIT 10;
 ```
+   ![image 8](https://github.com/user-attachments/assets/73828121-6f77-42e9-ab1f-40c705785044)
 
 **Insight**:Barista Espresso leads the sales with $20,423.4, indicating strong customer preference. Brewed Chai Tea and Hot Chocolate are also top sellers, with $17,427.7 and $16,319.8 in sales, respectively, likely favored during cooler months as comfort drinks. The data reflects diverse customer tastes, with popular options like Gourmet Brewed Coffee, Brewed Herbal Tea, and Brewed Black Tea. Specialty coffees, such as Premium and Organic Brewed Coffee, also show significant sales, indicating a demand for higher-end products. Scones, the only non-beverage item in the top 10, with $8,305.3 in sales, suggest customers enjoy pairing snacks with drinks. Although Drip Coffee has the lowest sales among the top 10 at $7,290.5, its presence indicates steady demand.
 
@@ -260,6 +274,8 @@ A vertical bar chart on the right side summarizes total sales for each hour acro
 A horizontal bar chart on top summarizes total sales for each day across all hours.
 
 When you hover over any cell in the heatmap, tooltips display detailed metrics such as sales, orders, and quantity, providing more granular information about the sales data.
+
+   ![image 9](https://github.com/user-attachments/assets/721e58f9-71a7-45a2-9e22-2d2d6b48ecb1)
 
 **Insight**:The darkest shades on the heat map indicate the highest sales volumes, with peak hours around 7 AM to 12 PM .Sales drop significantly after 6 PM and are lowest on Sunday. Early mornings (before 9 AM) also see minimal sales.The vertical  bar chart at the top shows that sales are highest from Monday to Wednesday, suggesting that weekdays and the start of the workweek are particularly busy for the business.
 
